@@ -407,6 +407,16 @@ class Package(Metadata):
         storage.write_package(self.to_copy(), force=force)
         return storage
 
+    def to_ckan(self, *, base_url, dataset_id=None, api_key=None):
+        return self.to_storage(
+            system.create_storage(
+                "ckan_datastore",
+                base_url=base_url,
+                dataset_id=dataset_id,
+                api_key=api_key,
+            )
+        )
+
     def to_sql(self, *, engine, prefix="", namespace=None, force=False):
         """Export package to SQL
 
